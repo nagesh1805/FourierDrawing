@@ -15,6 +15,7 @@ public class Matrix {
 			arr[i][0]=f.get(i);
 		}
 	}
+
 	public ComplexNumber get_ijth(int i,int j) {
 		return arr[i][j];
 	}

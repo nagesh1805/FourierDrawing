@@ -28,7 +28,7 @@ public class FourierDrawing extends GraphicsProgram {
 	public void run() {
 		infile=new File("/Users/nagi/Programming/JavaACM_programs/FourierDrawing/FourierDrawing/res/srinivas_ramanujan.txt");
 		
-		ArrayList<ComplexNumber> ff = new ArrayList<ComplexNumber>();
+		ArrayList<ComplexNumber> f = new ArrayList<ComplexNumber>();
 
 		try {
 			scn = new Scanner(infile);
@@ -48,41 +48,41 @@ public class FourierDrawing extends GraphicsProgram {
 			double rp=Double.parseDouble(w1);
 			double ip=Double.parseDouble(w2);
 			if(count%1==0)
-				ff.add(new ComplexNumber(rp,ip));
+				f.add(new ComplexNumber(rp,ip));
 			count++;
 		}
 		
-		ArrayList<ComplexNumber> f = null;
+		ArrayList<ComplexNumber> F = null;
 			
 		try {
-			f=ComplexNumber.FourierCCoefs(ff);
+			F=ComplexNumber.FourierCCoefs(f);
 			
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		for(int i=0;i<f.size();i++) {
-			f.set(i,f.get(i).mul(1.0/f.size()));
+		for(int i=0;i<F.size();i++) {
+			F.set(i,F.get(i).mul(1.0/F.size()));
 		}
 		HashMap<ComplexNumber, Integer> cmap=new HashMap<ComplexNumber,Integer>();
-		for(int i=0;i<f.size();i++) {
-			cmap.put(f.get(i), i);
+		for(int i=0;i<F.size();i++) {
+			cmap.put(F.get(i), i);
 		}
-	    f=ComplexSort(f,0,f.size());
+	    F=ComplexSort(F,0,F.size());
 		arrows = new ArrayList<GArrow>();
 	    circles = new ArrayList<GOval>();
-		int N=f.size();
+		int N=F.size();
 		ComplexNumber v=new ComplexNumber(getWidth()/2,getHeight()/2);
 		for (int i=0;i<N;i++) {	 	
-			GArrow arrow = new GArrow(v.getR_part(),v.getI_part(),v.getR_part()+f.get(i).getR_part(),v.getI_part()+f.get(i).getI_part(),0.5);
-			GOval circle = new GOval(v.getR_part()-f.get(i).get_polar_r(),v.getI_part()-f.get(i).get_polar_r(),2*f.get(i).get_polar_r(),2*f.get(i).get_polar_r());
+			GArrow arrow = new GArrow(v.getR_part(),v.getI_part(),v.getR_part()+F.get(i).getR_part(),v.getI_part()+F.get(i).getI_part(),0.5);
+			GOval circle = new GOval(v.getR_part()-F.get(i).get_polar_r(),v.getI_part()-F.get(i).get_polar_r(),2*F.get(i).get_polar_r(),2*F.get(i).get_polar_r());
 			arrow.setFilled(true);
 			arrow.setFullColor(Color.ORANGE);
 			circle.setColor(Color.DARK_GRAY);
 			arrows.add(arrow);
 			circles.add(circle);
-            v=v.add(f.get(i));   	
+            v=v.add(F.get(i));   	
 			add(circle);
 			add(arrow);
 		}
@@ -95,11 +95,11 @@ public class FourierDrawing extends GraphicsProgram {
 		for(int t=0;t<N;t++) {
 		ComplexNumber vv=new ComplexNumber(getWidth()/2,getHeight()/2);
 			for (int i=0;i<N;i++) {
-	    		vv=vv.add(f.get(i).rotate((2*Math.PI*cmap.get(f.get(i))*t)/N));
+	    		vv=vv.add(F.get(i).rotate((2*Math.PI*cmap.get(F.get(i))*t)/N));
 	    		arrows.get(i).setEndPoint(vv.getR_part(),vv.getI_part());
 	    		if(i<(N-1)) {
 			        arrows.get(i+1).setStartPoint(vv.getR_part(),vv.getI_part());
-			    	circles.get(i+1).setLocation(vv.getR_part()-f.get(i+1).get_polar_r(),vv.getI_part()-f.get(i+1).get_polar_r());
+			    	circles.get(i+1).setLocation(vv.getR_part()-F.get(i+1).get_polar_r(),vv.getI_part()-F.get(i+1).get_polar_r());
 	    		}
 			}	
 
