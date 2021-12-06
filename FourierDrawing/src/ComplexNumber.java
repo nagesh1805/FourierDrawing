@@ -10,7 +10,10 @@ public class ComplexNumber
 		r_part=a;
 		i_part=b;
 	}
-	
+	public ComplexNumber(double a) {
+		r_part=a;
+		i_part=0;
+	}
 	public ComplexNumber() {
 		this(0,0);
 	}
@@ -131,15 +134,11 @@ public class ComplexNumber
 		}
 		return D;
 	}
-	
+	// Fourier coefficients for complex numbers
 	public static ArrayList<ComplexNumber> FourierCCoefs(ArrayList<ComplexNumber> f) throws Exception{
-		Matrix ff = new Matrix(f.size(),1);
+		Matrix ff = new Matrix(f);
 		Matrix dft=DFT(f.size());
-		//ComplexNumber _1byN=new ComplexNumber(1.0/f.size(),0);
-		//dft=dft.scalar_mul(_1byN);
-		for(int i=0;i<f.size();i++) {
-			ff.set_ijth(i, 0, f.get(i));
-		}
+
 		Matrix fc=dft.mul(ff);
 		ArrayList<ComplexNumber> fcs = new ArrayList<ComplexNumber>();
 		for(int i=0;i<f.size();i++) {
@@ -149,23 +148,14 @@ public class ComplexNumber
 		return fcs;
 				
 	}
-	
+	// Fourier coefficients for real numbers
 	public static ArrayList<ComplexNumber> FourierDCoefs(ArrayList<Double> f) throws Exception{
-		Matrix ff = new Matrix(f.size(),1);
-		Matrix dft=DFT(f.size());
-		//ComplexNumber _1byN=new ComplexNumber(1.0/f.size(),0);
-		//dft.scalar_mul(_1byN);
+		ArrayList<ComplexNumber> ff = new ArrayList<ComplexNumber>();
 		for(int i=0;i<f.size();i++) {
-			ComplexNumber z=new ComplexNumber(f.get(i),0);
-			ff.set_ijth(i, 0, z);
-		}
-		Matrix fc=dft.mul(ff);
-		ArrayList<ComplexNumber> fcs = new ArrayList<ComplexNumber>();
-		for(int i=0;i<f.size();i++) {
-			fcs.add(fc.get_ijth(i, 0));
+			ff.add(new ComplexNumber(f.get(i)));
 		}
 		
-		return fcs;
+		return FourierCCoefs(ff);
 				
 	}
 	

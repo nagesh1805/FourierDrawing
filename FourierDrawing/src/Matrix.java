@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Matrix {
 	
@@ -6,7 +7,14 @@ public class Matrix {
 		ncol=n;
 		arr=new ComplexNumber[m][n];
 	}
-	
+	public Matrix(ArrayList<ComplexNumber> f) {
+		nrow=f.size();
+		ncol=1;
+		arr=new ComplexNumber[nrow][1];
+		for(int i=0;i<f.size();i++) {
+			arr[i][0]=f.get(i);
+		}
+	}
 	public ComplexNumber get_ijth(int i,int j) {
 		return arr[i][j];
 	}

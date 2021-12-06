@@ -6,6 +6,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="/Users/nagi/ACM_JAVA/acm.jar"/>
+	<classpathentry kind="lib" path="/Users/nagi/Programming/ACM/acm.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

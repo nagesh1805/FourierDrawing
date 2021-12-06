@@ -26,9 +26,9 @@ public class FourierDrawing extends GraphicsProgram {
 	}
 	
 	public void run() {
-		infile=new File("/Users/nagi/eclipse-workspace/FourierDrawing/res/srinivas_ramanujan.txt");
+		infile=new File("/Users/nagi/Programming/JavaACM_programs/FourierDrawing/FourierDrawing/res/srinivas_ramanujan.txt");
 		
-		ArrayList<ComplexNumber> f = new ArrayList<ComplexNumber>();
+		ArrayList<ComplexNumber> ff = new ArrayList<ComplexNumber>();
 
 		try {
 			scn = new Scanner(infile);
@@ -48,21 +48,22 @@ public class FourierDrawing extends GraphicsProgram {
 			double rp=Double.parseDouble(w1);
 			double ip=Double.parseDouble(w2);
 			if(count%1==0)
-				f.add(new ComplexNumber(rp,ip));
+				ff.add(new ComplexNumber(rp,ip));
 			count++;
 		}
 		
+		ArrayList<ComplexNumber> f = null;
 			
 		try {
-			f=ComplexNumber.FourierCCoefs(f);
-			ComplexNumber _1byN=new ComplexNumber(1.0/f.size(),0);
-			for(int i=0;i<f.size();i++) {
-				f.set(i, f.get(i).mul(_1byN));
-			}
+			f=ComplexNumber.FourierCCoefs(ff);
+			
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		for(int i=0;i<f.size();i++) {
+			f.set(i,f.get(i).mul(1.0/f.size()));
 		}
 		HashMap<ComplexNumber, Integer> cmap=new HashMap<ComplexNumber,Integer>();
 		for(int i=0;i<f.size();i++) {
